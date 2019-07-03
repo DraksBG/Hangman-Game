@@ -7,7 +7,7 @@
     <ProjectGuid>{CFA3F453-ECC5-4037-A34B-AA8C79FB8902}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Hangman_game</RootNamespace>
-    <AssemblyName>Hangman_game</AssemblyName>
+    <AssemblyName>Hangman game</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
