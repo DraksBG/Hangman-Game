@@ -1,0 +1,7 @@
+C:\Users\dimit\source\repos\Method\Hangman game\bin\Debug\Hangman game.exe.config
+C:\Users\dimit\source\repos\Method\Hangman game\bin\Debug\Hangman game.exe
+C:\Users\dimit\source\repos\Method\Hangman game\bin\Debug\Hangman game.pdb
+C:\Users\dimit\source\repos\Method\Hangman game\obj\Debug\Hangman game.csprojAssemblyReference.cache
+C:\Users\dimit\source\repos\Method\Hangman game\obj\Debug\Hangman game.csproj.CoreCompileInputs.cache
+C:\Users\dimit\source\repos\Method\Hangman game\obj\Debug\Hangman game.exe
+C:\Users\dimit\source\repos\Method\Hangman game\obj\Debug\Hangman game.pdb
