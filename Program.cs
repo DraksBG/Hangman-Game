@@ -8,33 +8,33 @@ namespace Hangman_game
 {
     class Program
     {
-       static string GeneratingRandomWords()
-       {
+        static string GeneratingRandomWords()
+        {
             Random r = new Random();
-            
+
             List<string> words = new List<string>() { "cat", "dog", "eagle", "lion", "shark" };
             string word = words[r.Next(0, words.Count)];
             return word;
-       }
+        }
 
-       static char[] GeneratingCharFromString()
+        static char[] GeneratingCharFromString(string randomWord)
         {
-            string word = GeneratingRandomWords();
-            char[] wordChar = word.ToCharArray();
-            
-           
+            //string word = GeneratingRandomWords();
+            char[] wordChar = randomWord.ToCharArray();
+
+
             //foreach (var item in wordChar)
             //{
             //    Console.WriteLine(item);
             //}
             return wordChar;
         }
-        static void TransformingCharToInvisible(string word)
+        static void TransformingCharToInvisible( string randomWord)
         {
-            word = GeneratingRandomWords();
-            
+           
 
-            foreach (var item in word)
+
+            foreach (var item in randomWord)
             {
                 Console.Write("_ ");
             }
@@ -43,16 +43,16 @@ namespace Hangman_game
         }
         static char Input()
         {
-            char inputt= char.Parse(Console.ReadLine());
+            char inputt = char.Parse(Console.ReadLine());
             return inputt;
         }
-       static bool GameRunning(int guesses,char input, char[]word )
-       {
+        static bool GameRunning(int guesses, char input, char[] CharFromString)
+        {
             bool gameRunning = true;
             bool guessedWord = true;
             guesses = 10;
             input = Input();
-            word = GeneratingCharFromString();
+            char[] word = CharFromString;
             for (int i = 0; i < word.Length; i++)
             {
                 if (word[i] != input)
@@ -65,7 +65,7 @@ namespace Hangman_game
                     guessedWord = true;
                 }
             }
-            if (guessedWord == false )
+            if (guessedWord == false)
             {
                 guesses--;
             }
@@ -75,45 +75,45 @@ namespace Hangman_game
             }
             return gameRunning;
         }
-       static char Update (char input, char[]word)
-       {
+        static char Update(char input, char[] CharFromString, string randomWord)
+        {
             input = Input();
-            word = GeneratingCharFromString();
+            char[] word = CharFromString;
             for (int i = 0; i < word.Length; i++)
             {
                 if (input == word[i])
                 {
                     Console.WriteLine(word[i]);
                 }
-                else if (input!= word[i])
+                else if (input != word[i])
                 {
-                    TransformingCharToInvisible(word.ToString());
+                    TransformingCharToInvisible(randomWord);
                 }
-                
+
             }
             return input;
-            
-       }
-        
+
+        }
+
 
         static void Main(string[] args)
         {
             string randomWord = GeneratingRandomWords();
             TransformingCharToInvisible(randomWord);
-            GeneratingCharFromString();
+            char[] CharFromString = GeneratingCharFromString(randomWord);
             int guesses = 10;
-            
 
-           while (true)
-           {
+
+            while (true)
+            {
                 char input = Input();
-                bool gameIsRunning = GameRunning(guesses, input, GeneratingCharFromString());
-                Update(input, GeneratingCharFromString());
+                bool gameIsRunning = GameRunning(guesses, input,CharFromString);
+                Update(input,CharFromString,randomWord);
                 if (gameIsRunning == false)
                 {
                     break;
                 }
-           }
+            }
 
         }
     }
