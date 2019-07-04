@@ -23,15 +23,16 @@ namespace Hangman_game
             char[] wordChar = word.ToCharArray();
             
            
-            foreach (var item in wordChar)
-            {
-                Console.WriteLine(item);
-            }
+            //foreach (var item in wordChar)
+            //{
+            //    Console.WriteLine(item);
+            //}
             return wordChar;
         }
         static void TransformingCharToInvisible(string word)
         {
             word = GeneratingRandomWords();
+            
 
             foreach (var item in word)
             {
@@ -45,49 +46,74 @@ namespace Hangman_game
             char inputt= char.Parse(Console.ReadLine());
             return inputt;
         }
-       static int Guessed(int guesses, char input, char[] word)
+       static bool GameRunning(int guesses,char input, char[]word )
        {
             bool gameRunning = true;
+            bool guessedWord = true;
             guesses = 10;
             input = Input();
             word = GeneratingCharFromString();
-
             for (int i = 0; i < word.Length; i++)
             {
-                if (input != word[i])
+                if (word[i] != input)
                 {
-                    guesses = -1;
+                    guessedWord = false;
+                    Console.WriteLine("You have {0} guesses left", guesses);
+                }
+                else if (word[i] == input)
+                {
+                    guessedWord = true;
                 }
             }
-            if (inp)
+            if (guessedWord == false )
+            {
+                guesses--;
+            }
+            if (guesses == 0)
             {
                 gameRunning = false;
-
             }
+            return gameRunning;
         }
-        //static bool Update (int input, int number, char guesses, char symbols)
-        //{
-        //    return with if statmen if true if the user guessed the right char from the word it apears or 
-        //        if false if it dosent it his guesses are decreesed
-        //}
-        //static bool GameRunningUntil(int input, int number, string word, char guessed)
-        //{
-        //    return the game will run while the user sucessfuly input all the char until the guesses hasn't ended
-        //        or if the guesses becomes 0;
-        //}
+       static char Update (char input, char[]word)
+       {
+            input = Input();
+            word = GeneratingCharFromString();
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (input == word[i])
+                {
+                    Console.WriteLine(word[i]);
+                }
+                else if (input!= word[i])
+                {
+                    TransformingCharToInvisible(word.ToString());
+                }
+                
+            }
+            return input;
+            
+       }
+        
 
         static void Main(string[] args)
         {
             string randomWord = GeneratingRandomWords();
             TransformingCharToInvisible(randomWord);
-           
-            
+            GeneratingCharFromString();
+            int guesses = 10;
             
 
-            //while (true)
-            //{
-            //    //here will go all the other methods
-            //}
+           while (true)
+           {
+                char input = Input();
+                bool gameIsRunning = GameRunning(guesses, input, GeneratingCharFromString());
+                Update(input, GeneratingCharFromString());
+                if (gameIsRunning == false)
+                {
+                    break;
+                }
+           }
 
         }
     }
