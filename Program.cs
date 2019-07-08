@@ -17,18 +17,18 @@ namespace Hangman_game
             return word;
         }
 
-        static char[] GeneratingCharFromString(string randomWord)
-        {
+        //static char[] GeneratingCharFromString(string randomWord)
+        //{
 
-            char[] wordChar = randomWord.ToCharArray();
+        //    char[] wordChar = randomWord.ToCharArray();
 
 
-            foreach (var item in wordChar)
-            {
+        //    foreach (var item in wordChar)
+        //    {
 
-            }
-            return wordChar;
-        }
+        //    }
+        //    return wordChar;
+        //}
         static char Input()
         {
             char inputt = char.Parse(Console.ReadLine());
@@ -37,7 +37,7 @@ namespace Hangman_game
         static char[] TransformingCharToInvisible(string randomWord)
         {
 
-            char[] charFromString = GeneratingCharFromString(randomWord);
+            char[] charFromString = randomWord.ToCharArray();
             for (int i = 0; i < randomWord.Length; i++)
             {
                 charFromString[i] = '*';
@@ -45,92 +45,99 @@ namespace Hangman_game
             Console.WriteLine(charFromString);
             return charFromString;
         }
-        //static int Lives()
-        //{
-        //    int lives = 10;
-        //    return lives;
-        //}
-        static bool CorrectGuesses(char input, string randomWord, List<char> coreguesses)
+
+        static int CorrectGuesses(char input, string randomWord/*, List<char> coreguesses,*/, int correct)
         {
-            coreguesses = new List<char>();
+            //coreguesses = new List<char>();
             //char[] playerSees = TransformingCharToInvisible(randomWord);
 
-            int correct = 0;
+
 
             if (randomWord.Contains(input))
             {
                 Console.WriteLine("Next");
                 correct++;
-                for (int i = 0; i < randomWord.Length; i++)
-                {
-                    if (randomWord[i] == input)
-                    {
-                        coreguesses.Add(input);
-                    }
-
-
-                }
+                //for (int i = 0; i < randomWord.Length; i++)
+                //{
+                //if (randomWord[i] == input)
+                //{
+                //coreguesses.Add(input);
+                //}
+                // }
             }
+            return correct;
 
-            if (correct == randomWord.Length)
-            {
-                Console.WriteLine("You won the word is: {0}", randomWord);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            //if (correct == randomWord.Length)
+            //{
+            //    Console.WriteLine("You won the word is: {0}", randomWord);
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
 
-        static bool IncorrectGuesses(char input, string randomWord, int lives)
+
+        static int Lives(string randomWord, char input, int lives)
         {
             if (!randomWord.Contains(input))
             {
-                lives--;
                 Console.WriteLine("Try another one");
+                lives--;
             }
-            if (lives == 0)
-            {
-                Console.WriteLine("You lose sorry, try againg next time ");
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            return lives;
         }
 
+        static List<char> CorrectWord(List<char> correctGuesses, string randomWord, char input, int count )
+        {
+            
+            if (randomWord.Contains(input))
+            {
+                correctGuesses.Add(input);
 
+               for (int i = 0; i < randomWord.Length; i++)
+               {
+                   if (randomWord[i] == input)
+                   {
+                       TransformingCharToInvisible(randomWord)[i] = randomWord[i];
+                        count++;
+                   }
+               }
+               
+            }
+            return correctGuesses;
+        }
 
         static void Main(string[] args)
         {
             string randomWord = GeneratingRandomWords();
-            int lives = 10;
             TransformingCharToInvisible(randomWord);
             List<char> correctGuesses = new List<char>();
+            int lives = 10;
+            int correct = 0;
+            int count = 0;
+
             while (true)
             {
+
                 Console.WriteLine("Write a char");
                 char input = Input();
-                bool won = CorrectGuesses(input, randomWord, correctGuesses);
-                bool game = IncorrectGuesses(input, randomWord, lives);
-                if (game)
+
+                correct = CorrectGuesses(input, randomWord, correct);
+                lives = Lives(randomWord, input, lives);
+                correctGuesses = CorrectWord(correctGuesses, randomWord, input, count);
+                if (lives == 0)
                 {
-                    break;
-                }
-                if (won)
-                {
-                    break;
-                }
-                if (correctGuesses.Count== randomWord.Length)
-                {
-                    Console.WriteLine("WINNER");
+                    Console.WriteLine("You lose sorry, try againg next time ");
                     break;
                 }
 
-
+                if (correctGuesses.Count == randomWord.Length)
+                {
+                    Console.WriteLine("You won the word is: {0}", randomWord);
+                    break;
+                }
             }
         }
     }
