@@ -46,36 +46,15 @@ namespace Hangman_game
             return charFromString;
         }
 
-        static int CorrectGuesses(char input, string randomWord/*, List<char> coreguesses,*/, int correct)
+        static int CorrectGuesses(char input, string randomWord, int correct)
         {
-            //coreguesses = new List<char>();
-            //char[] playerSees = TransformingCharToInvisible(randomWord);
-
-
-
             if (randomWord.Contains(input))
             {
                 Console.WriteLine("Next");
                 correct++;
-                //for (int i = 0; i < randomWord.Length; i++)
-                //{
-                //if (randomWord[i] == input)
-                //{
-                //coreguesses.Add(input);
-                //}
-                // }
+                
             }
-            return correct;
-
-            //if (correct == randomWord.Length)
-            //{
-            //    Console.WriteLine("You won the word is: {0}", randomWord);
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+            return correct; 
         }
 
 
@@ -89,22 +68,21 @@ namespace Hangman_game
             return lives;
         }
 
-        static List<char> CorrectWord(List<char> correctGuesses, string randomWord, char input, int count )
+        static List<char> CorrectWord(List<char> correctGuesses, string randomWord, char input)
         {
             
             if (randomWord.Contains(input))
             {
                 correctGuesses.Add(input);
 
-               for (int i = 0; i < randomWord.Length; i++)
-               {
-                   if (randomWord[i] == input)
-                   {
-                       TransformingCharToInvisible(randomWord)[i] = randomWord[i];
-                        count++;
-                   }
-               }
-               
+               //for (int i = 0; i < randomWord.Length; i++)
+               //{
+               //    if (randomWord[i] == input)
+               //    {
+               //        TransformingCharToInvisible(randomWord)[i] = randomWord[i];
+                        
+               //    }
+               //}
             }
             return correctGuesses;
         }
@@ -116,7 +94,7 @@ namespace Hangman_game
             List<char> correctGuesses = new List<char>();
             int lives = 10;
             int correct = 0;
-            int count = 0;
+            
 
             while (true)
             {
@@ -126,7 +104,7 @@ namespace Hangman_game
 
                 correct = CorrectGuesses(input, randomWord, correct);
                 lives = Lives(randomWord, input, lives);
-                correctGuesses = CorrectWord(correctGuesses, randomWord, input, count);
+                correctGuesses = CorrectWord(correctGuesses, randomWord, input);
                 if (lives == 0)
                 {
                     Console.WriteLine("You lose sorry, try againg next time ");
