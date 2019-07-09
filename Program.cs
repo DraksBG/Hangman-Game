@@ -70,21 +70,26 @@ namespace Hangman_game
 
         static List<char> CorrectWord(List<char> correctGuesses, string randomWord, char input)
         {
-            
+            if (correctGuesses.Contains(input))
+            {
+                Console.WriteLine("You allready tried this {0} try somthing else", input);
+                
+            }
             if (randomWord.Contains(input))
             {
                 correctGuesses.Add(input);
-
-               //for (int i = 0; i < randomWord.Length; i++)
-               //{
-               //    if (randomWord[i] == input)
-               //    {
-               //        TransformingCharToInvisible(randomWord)[i] = randomWord[i];
-                        
-               //    }
-               //}
+                foreach (var c in randomWord)
+                {
+                    if (correctGuesses.Contains(c))
+                    {
+                       
+                    }
+                }
+               
             }
+           
             return correctGuesses;
+           
         }
 
         static void Main(string[] args)
