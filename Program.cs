@@ -34,17 +34,19 @@ namespace Hangman_game
             char inputt = char.Parse(Console.ReadLine());
             return inputt;
         }
-        static char[] TransformingCharToInvisible(string randomWord)
-        {
+       static char[] TransformingCharToInvisible(string randomWord)
+       {
 
-            char[] charFromString = randomWord.ToCharArray();
-            for (int i = 0; i < randomWord.Length; i++)
-            {
-                charFromString[i] = '*';
-            }
-            Console.WriteLine(charFromString);
-            return charFromString;
-        }
+           char[] charFromString = randomWord.ToCharArray();
+           for (int i = 0; i < randomWord.Length; i++)
+           {
+               charFromString[i] = '*';
+         
+           }
+           Console.WriteLine(charFromString);
+        
+           return charFromString;
+       }
 
         static int CorrectGuesses(char input, string randomWord, int correct)
         {
@@ -78,14 +80,18 @@ namespace Hangman_game
             if (randomWord.Contains(input))
             {
                 correctGuesses.Add(input);
-                foreach (var c in randomWord)
+                char[] charFromString = randomWord.ToCharArray();
+                for (int i = 0; i < randomWord.Length; i++)
                 {
-                    if (correctGuesses.Contains(c))
+                    charFromString[i] = '*';
+                    if (correctGuesses.Contains(randomWord[i]))
                     {
-                       
+                        charFromString[i] = randomWord[i];
                     }
+
                 }
-               
+                Console.WriteLine(charFromString);
+
             }
            
             return correctGuesses;
