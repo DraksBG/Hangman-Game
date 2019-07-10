@@ -34,19 +34,19 @@ namespace Hangman_game
             char inputt = char.Parse(Console.ReadLine());
             return inputt;
         }
-       static char[] TransformingCharToInvisible(string randomWord)
-       {
+        static char[] TransformingCharToInvisible(string randomWord)
+        {
 
-           char[] charFromString = randomWord.ToCharArray();
-           for (int i = 0; i < randomWord.Length; i++)
-           {
-               charFromString[i] = '*';
-         
-           }
-           Console.WriteLine(charFromString);
-        
-           return charFromString;
-       }
+            char[] charFromString = randomWord.ToCharArray();
+            for (int i = 0; i < randomWord.Length; i++)
+            {
+                charFromString[i] = '*';
+
+            }
+            Console.WriteLine(charFromString);
+
+            return charFromString;
+        }
 
         static int CorrectGuesses(char input, string randomWord, int correct)
         {
@@ -54,9 +54,9 @@ namespace Hangman_game
             {
                 Console.WriteLine("Next");
                 correct++;
-                
+
             }
-            return correct; 
+            return correct;
         }
 
 
@@ -72,11 +72,7 @@ namespace Hangman_game
 
         static List<char> CorrectWord(List<char> correctGuesses, string randomWord, char input)
         {
-            if (correctGuesses.Contains(input))
-            {
-                Console.WriteLine("You allready tried this {0} try somthing else", input);
-                
-            }
+          
             if (randomWord.Contains(input))
             {
                 correctGuesses.Add(input);
@@ -93,9 +89,7 @@ namespace Hangman_game
                 Console.WriteLine(charFromString);
 
             }
-           
             return correctGuesses;
-           
         }
 
         static void Main(string[] args)
@@ -105,7 +99,7 @@ namespace Hangman_game
             List<char> correctGuesses = new List<char>();
             int lives = 10;
             int correct = 0;
-            
+
 
             while (true)
             {
@@ -115,7 +109,13 @@ namespace Hangman_game
 
                 correct = CorrectGuesses(input, randomWord, correct);
                 lives = Lives(randomWord, input, lives);
+                if (correctGuesses.Contains(input))
+                {
+                    Console.WriteLine("You've already tried '{0}', and it was correct!", input);
+                    continue;
+                }
                 correctGuesses = CorrectWord(correctGuesses, randomWord, input);
+                
                 if (lives == 0)
                 {
                     Console.WriteLine("You lose sorry, try againg next time ");
