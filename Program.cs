@@ -12,7 +12,7 @@ namespace Hangman_game
         {
             Random r = new Random();
 
-            List<string> words = new List<string>() { "cat", "dog", "eagle", "lion", "shark" };
+            List<string> words = new List<string>() { "Cat", "Dog", "Eagle", "Lion", "Shark" };
             string word = words[r.Next(0, words.Count)];
             return word;
         }
@@ -72,10 +72,14 @@ namespace Hangman_game
 
         static List<char> CorrectWord(List<char> correctGuesses, string randomWord, char input)
         {
-          
+            if (randomWord.ToUpper().Contains(input))
+            {
+                correctGuesses.Contains(input);
+            }
             if (randomWord.Contains(input))
             {
                 correctGuesses.Add(input);
+               
                 char[] charFromString = randomWord.ToCharArray();
                 for (int i = 0; i < randomWord.Length; i++)
                 {
