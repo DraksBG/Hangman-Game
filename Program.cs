@@ -12,23 +12,12 @@ namespace Hangman_game
         {
             Random r = new Random();
 
-            List<string> words = new List<string>() { "Cat", "Dog", "Eagle", "Lion", "Shark" };
+            List<string> words = new List<string>() { "Cat", "Dog", "Eagle", "Lion", "Shark", "Green","Booty" };
             string word = words[r.Next(0, words.Count)];
             return word;
         }
 
-        //static char[] GeneratingCharFromString(string randomWord)
-        //{
-
-        //    char[] wordChar = randomWord.ToCharArray();
-
-
-        //    foreach (var item in wordChar)
-        //    {
-
-        //    }
-        //    return wordChar;
-        //}
+      
         static char Input()
         {
             char inputt = char.Parse(Console.ReadLine());
@@ -72,14 +61,11 @@ namespace Hangman_game
 
         static List<char> CorrectWord(List<char> correctGuesses, string randomWord, char input)
         {
-            if (randomWord.ToUpper().Contains(input))
-            {
-                correctGuesses.Contains(input);
-            }
+
             if (randomWord.Contains(input))
             {
                 correctGuesses.Add(input);
-               
+
                 char[] charFromString = randomWord.ToCharArray();
                 for (int i = 0; i < randomWord.Length; i++)
                 {
@@ -103,6 +89,7 @@ namespace Hangman_game
             List<char> correctGuesses = new List<char>();
             int lives = 10;
             int correct = 0;
+            //bool won = true;
 
 
             while (true)
@@ -119,19 +106,27 @@ namespace Hangman_game
                     continue;
                 }
                 correctGuesses = CorrectWord(correctGuesses, randomWord, input);
-                
+
                 if (lives == 0)
                 {
+
                     Console.WriteLine("You lose sorry, try againg next time ");
                     break;
                 }
 
-                if (correctGuesses.Count == randomWord.Length)
+
+
+
+                if (correctGuesses.Count == randomWord.Distinct().Count())
                 {
+
                     Console.WriteLine("You won the word is: {0}", randomWord);
-                    break;
+                   break;
                 }
+
+
             }
+          
         }
     }
 }
