@@ -12,34 +12,34 @@ namespace Hangman_game
         {
             Random r = new Random();
 
-            List<string> words = new List<string>() { "Cat", "Dog", "Eagle", "Lion", "Shark", "Green","Booty" };
-            string word = words[r.Next(0, words.Count)];
-            return word;
+            List<string> words = new List<string>() { "Cat", "Dog", "Eagle", "Lion", "Shark", "Green","Booty" }; // съсдаден е лист с думи в него които после ще бъдат използвани.
+            string word = words[r.Next(0, words.Count)]; // тази променлива съдържа в себе си листа с думи и изпозвайки систем рандом който генерира псевдо рандом число от бройката на думите в листа това число представлява дума от листа която се използва всеки път когато е използвана променливата.
+            return word; // връща избраната дума от рандом генератора. 
         }
 
       
         static char Input()
         {
-            char inputt = char.Parse(Console.ReadLine());
+            char inputt = char.Parse(Console.ReadLine()); // с този ред правим така че човека да може да въведе инпут от тип чарактър в конозлата.
             return inputt;
         }
         static char[] TransformingCharToInvisible(string randomWord)
         {
 
-            char[] charFromString = randomWord.ToCharArray();
-            for (int i = 0; i < randomWord.Length; i++)
+            char[] charFromString = randomWord.ToCharArray();// създавам променлива от тип чар арай и записвам в него променливата рандомУрд която взима стойността си от мейнметода където е запазила рандом генериранта дума и я превръщам в чар арай използвайки функция, .
+            for (int i = 0; i < randomWord.Length; i++) // с фор цикъл обхождам цямлата дължина на думата и заменям индекса на всяка буква с "*" по дължината на думата.
             {
                 charFromString[i] = '*';
 
             }
             Console.WriteLine(charFromString);
 
-            return charFromString;
+            return charFromString;  // връща ми думтата във формата на чарове а те под формата на символа с който съм ги заменил.
         }
 
         static int CorrectGuesses(char input, string randomWord, int correct)
         {
-            if (randomWord.Contains(input))
+            if (randomWord.Contains(input)) // ако генерираната дума се съдържа в инпута на потребителя да се увеличи коррет с едно всеки път щом се съдържа.
             {
                 Console.WriteLine("Next");
                 correct++;
@@ -51,7 +51,7 @@ namespace Hangman_game
 
         static int Lives(string randomWord, char input, int lives)
         {
-            if (!randomWord.Contains(input))
+            if (!randomWord.Contains(input)) // ако генерираната дума не съдържа в инпута на потребителя да се намалят животите за всеки път щом не се съдържа с едно.
             {
                 Console.WriteLine("Try another one");
                 lives--;
@@ -62,17 +62,17 @@ namespace Hangman_game
         static List<char> CorrectWord(List<char> correctGuesses, string randomWord, char input)
         {
 
-            if (randomWord.Contains(input))
+            if (randomWord.Contains(input)) // ако рандом думата съдържа инпута на потребителя
             {
-                correctGuesses.Add(input);
+                correctGuesses.Add(input);// да го добавя в списъка 
 
-                char[] charFromString = randomWord.ToCharArray();
-                for (int i = 0; i < randomWord.Length; i++)
+                char[] charFromString = randomWord.ToCharArray(); // създавам чар арай който съдържа в себеси думта на чарактари
+                for (int i = 0; i < randomWord.Length; i++) // обхождам я със фор цикл по нейната дължина
                 {
-                    charFromString[i] = '*';
-                    if (correctGuesses.Contains(randomWord[i]))
+                    charFromString[i] = '*'; // заменям индекса на всеки чарактар при всяко завъртане на цикъла със символа.
+                    if (correctGuesses.Contains(randomWord[i])) // ако листа съдържа индекса на рандомУърд
                     {
-                        charFromString[i] = randomWord[i];
+                        charFromString[i] = randomWord[i]; //  чарактъра на символа да се замени с  чарактара на рандомУърд.
                     }
 
                 }
@@ -84,30 +84,30 @@ namespace Hangman_game
 
         static void Main(string[] args)
         {
-            string randomWord = GeneratingRandomWords();
-            TransformingCharToInvisible(randomWord);
-            List<char> correctGuesses = new List<char>();
+            string randomWord = GeneratingRandomWords(); // тази променлива съдържа метода за генерираната рандом дума.
+            TransformingCharToInvisible(randomWord); // тове е метода за изписване на думата под символите които сме избрали
+            List<char> correctGuesses = new List<char>(); // съсдава се нов лист който ще се пълни чрез метода КоректУърд.
             int lives = 10;
             int correct = 0;
-            //bool won = true;
+          
 
 
-            while (true)
+            while (true) // цикъла се върти докато в него висчко е вярно
             {
 
-                Console.WriteLine("Write a char");
-                char input = Input();
+                Console.WriteLine("Write a char"); // изписва се 
+                char input = Input(); // въвежда се инпут от потребителя
 
-                correct = CorrectGuesses(input, randomWord, correct);
-                lives = Lives(randomWord, input, lives);
-                if (correctGuesses.Contains(input))
+                correct = CorrectGuesses(input, randomWord, correct); //  тази променлива взима стойостта от изпълнения метод и я пази.
+                lives = Lives(randomWord, input, lives); // тази променлива взима стойостта от изпълнения метод и я пази .
+                if (correctGuesses.Contains(input)) // ако инпута на потребителя се съдържа в листа да изпише че вече е опитал това.
                 {
                     Console.WriteLine("You've already tried '{0}', and it was correct!", input);
                     continue;
                 }
-                correctGuesses = CorrectWord(correctGuesses, randomWord, input);
+                correctGuesses = CorrectWord(correctGuesses, randomWord, input); // това е променливата лист която съдържа метода КорректУърд и се пълни спрямо това как се изпълнява метода.
 
-                if (lives == 0)
+                if (lives == 0) // ако животите са равни на 0 програмата спира и изписва че потребителя губи
                 {
 
                     Console.WriteLine("You lose sorry, try againg next time ");
@@ -117,10 +117,10 @@ namespace Hangman_game
 
 
 
-                if (correctGuesses.Count == randomWord.Distinct().Count())
+                if (correctGuesses.Count == randomWord.Distinct().Count())// ако бройката в списъка е равна на бройката на думата ,което става чрез дистикт който премахва дубликатите , които не могат да бъдат въведени от потребителя и по този начин се избягва безкрайния цикъл.
                 {
 
-                    Console.WriteLine("You won the word is: {0}", randomWord);
+                    Console.WriteLine("You won the word is: {0}", randomWord); // изписва че потребителя е победил и прекъсва програмта.
                    break;
                 }
 
