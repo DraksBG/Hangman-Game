@@ -34,32 +34,28 @@ namespace Hangman_game
             if (randomWord.Contains(input)) // ако рандом думата съдържа инпута на потребителя
             {
                 correctGuesses.Add(input);// да го добавя в списъка 
-                char[] charFromString = randomWord.ToCharArray(); // създавам чар арай който съдържа в себеси думта на чарактари
-                for (int i = 0; i < randomWord.Length; i++) // обхождам я със фор цикл по нейната дължина
-                {
-                    charFromString[i] = '*'; // заменям индекса на всеки чарактар при всяко завъртане на цикъла със символа.
-                    if (correctGuesses.Contains(randomWord[i])) // ако листа съдържа индекса на рандомУърд
-                    {
-                        charFromString[i] = randomWord[i]; //  чарактъра на символа да се замени с  чарактара на рандомУърд.
-                    }
-                }
-                Console.WriteLine(charFromString);
+                
             }
             return correctGuesses;
         }
         static void Main(string[] args)
         {
             string randomWord = GeneratingRandomWords(); // тази променлива съдържа метода за генерираната рандом дума.
-            char[] charFromString = randomWord.ToCharArray();
-            for (int i = 0; i < randomWord.Length; i++) // с 
-            {
-                charFromString[i] = '*';
-            }
-            Console.WriteLine(charFromString);
+           
             List<char> correctGuesses = new List<char>(); // съсдава се нов лист който ще се пълни чрез метода КоректУърд.
             int lives = 10; 
             while (true) // цикъла се върти докато в него висчко е вярно
             {
+                char[] charFromString = randomWord.ToCharArray(); // създавам чар арай който съдържа в себеси думта на чарактари
+            for (int i = 0; i < randomWord.Length; i++) // обхождам я със фор цикл по нейната дължина
+            {
+                charFromString[i] = '*'; // заменям индекса на всеки чарактар при всяко завъртане на цикъла със символа.
+                if (correctGuesses.Contains(randomWord[i])) // ако листа съдържа индекса на рандомУърд
+                {
+                    charFromString[i] = randomWord[i]; //  чарактъра на символа да се замени с  чарактара на рандомУърд.
+                }
+            }
+            Console.WriteLine(charFromString);
                 Console.WriteLine("Write a char"); // изписва се 
                 char input = Input(); // въвежда се инпут от потребителя
 
